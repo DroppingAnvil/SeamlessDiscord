@@ -4,6 +4,7 @@ import io.github.droppinganvil.SeamlessWebD.Configuration;
 import io.github.droppinganvil.SeamlessWebD.Plugin;
 import io.github.droppinganvil.SeamlessWebD.Start;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
@@ -47,5 +48,9 @@ public class Ping implements Plugin {
 
     public void handleReact(GenericMessageReactionEvent e) {
 
+    }
+
+    public Permission getPermissionRequired() {
+        return null;
     }
 }

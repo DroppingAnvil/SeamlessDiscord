@@ -1,5 +1,6 @@
 package io.github.droppinganvil.SeamlessWebD;
 
+import io.github.droppinganvil.SeamlessWebD.DefaultPlugins.Echo;
 import io.github.droppinganvil.SeamlessWebD.DefaultPlugins.Help;
 import io.github.droppinganvil.SeamlessWebD.DefaultPlugins.Ping;
 import io.github.droppinganvil.SeamlessWebD.DefaultPlugins.Plugins;
@@ -24,6 +25,7 @@ public class Start {
         PluginManager.registerPlugin(new Help());
         PluginManager.registerPlugin(new Ping());
         PluginManager.registerPlugin(new Plugins());
+        PluginManager.registerPlugin(new Echo());
 
     }
 }

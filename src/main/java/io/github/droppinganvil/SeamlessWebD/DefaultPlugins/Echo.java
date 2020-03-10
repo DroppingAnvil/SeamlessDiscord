@@ -1,9 +1,7 @@
 package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
 
-import io.github.droppinganvil.SeamlessWebD.Configuration;
 import io.github.droppinganvil.SeamlessWebD.MessageManager;
 import io.github.droppinganvil.SeamlessWebD.Plugin;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
@@ -19,11 +17,11 @@ public class Echo implements Plugin {
     }
 
     public int getArgsMinSize() {
-        return 3;
+        return 2;
     }
 
     public int getArgsMaxSize() {
-        return 3;
+        return 2;
     }
 
     public boolean botCanUse() {

@@ -22,7 +22,7 @@ public class PluginManager {
         if (event.getAuthor().isBot() && !target.botCanUse()) return;
         if (target.getPermissionRequired() != null) {
             if (!event.getMember().hasPermission(target.getPermissionRequired())) {
-                MessageManager.sendMessage(Configuration.permission_descriptive, embed_errors ? MessageType.Embed : MessageType.String, event.getChannel(), Configuration.permission_basic);
+                MessageManager.sendMessage(Configuration.permission_descriptive + target.getPermissionRequired().getName(), embed_errors ? MessageType.Embed : MessageType.String, event.getChannel(), Configuration.permission_basic);
                 return;
             }
         }
