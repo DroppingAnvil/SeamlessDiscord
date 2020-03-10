@@ -13,6 +13,10 @@ public class Configuration {
     public static String permission_descriptive = "You do not have the required permission: ";
     public static String reaction_positive = "✔";
     public static String reaction_enabled = "true";
+    public static String unload_success = " has been unloaded successfully.";
+    public static String unload_failure = "A plugin with that command could not be located.";
+    public static String load_success = " has been loaded successfully.";
+    public static String load_failure = "An unloaded plugin with that command could not be located.";
     public static String token = "";
     public static Integer cooldown = 5;
 }

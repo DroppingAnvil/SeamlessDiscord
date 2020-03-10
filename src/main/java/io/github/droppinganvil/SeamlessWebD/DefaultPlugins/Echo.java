@@ -70,4 +70,8 @@ public class Echo implements Plugin {
     public void handleReact(GenericMessageReactionEvent e) {
 
     }
+
+    public void unload() {
+
+    }
 }

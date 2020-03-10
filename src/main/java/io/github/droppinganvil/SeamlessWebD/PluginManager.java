@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PluginManager {
     public static final boolean embed_errors = Configuration.embed_errors.equals("true");
     public static ConcurrentHashMap<String, Plugin> plugins = new ConcurrentHashMap<String, Plugin>();
+    public static ConcurrentHashMap<String, Plugin> unloaded = new ConcurrentHashMap<String, Plugin>();
     public static void handleCMD(String[] cmd, GuildMessageReceivedEvent event) {
         String actual = cmd[0].replace(Configuration.prefix, "").toLowerCase();
         if (!plugins.containsKey(actual)) {

@@ -1,29 +1,26 @@
 package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
 
-import io.github.droppinganvil.SeamlessWebD.Configuration;
-import io.github.droppinganvil.SeamlessWebD.Plugin;
-import io.github.droppinganvil.SeamlessWebD.Start;
-import net.dv8tion.jda.api.EmbedBuilder;
+import io.github.droppinganvil.SeamlessWebD.*;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 
-public class Ping implements Plugin {
+public class Load implements Plugin {
     public String getNiceName() {
-        return "Ping";
+        return "Load";
     }
 
     public String getCommand() {
-        return "ping";
+        return "load";
     }
 
     public int getArgsMinSize() {
-        return 0;
+        return 1;
     }
 
     public int getArgsMaxSize() {
-        return 0;
+        return 1;
     }
 
     public boolean botCanUse() {
@@ -31,15 +28,17 @@ public class Ping implements Plugin {
     }
 
     public String getSyntax() {
-        return "ping";
+        return "load <Unloaded Plugin's Command>";
     }
 
     public void handleCommand(GuildMessageReceivedEvent e) {
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setFooter(Configuration.embed_footer);
-        eb.setTitle("Ping");
-        eb.addField("Gateway", String.valueOf(Start.jda.getGatewayPing()), true);
-        e.getMessage().getChannel().sendMessage(eb.build()).queue();
+        String stripped = e.getMessage().getContentRaw().replace(Configuration.prefix + "load ", "");
+        if (PluginManager.unloaded.containsKey(stripped)) {
+            PluginManager.plugins.put(stripped, PluginManager.unloaded.get(stripped));
+            MessageManager.sendMessage(PluginManager.unloaded.remove(stripped).getNiceName() + Configuration.load_success, MessageType.Embed, e.getChannel(), "Load Plugin");
+        } else {
+            MessageManager.sendMessage(Configuration.load_failure, MessageType.Embed, e.getChannel(), "Load Plugin");
+        }
     }
 
     public void handlePrivateMessage(GenericPrivateMessageEvent e) {

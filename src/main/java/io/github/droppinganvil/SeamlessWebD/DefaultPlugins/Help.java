@@ -53,6 +53,10 @@ public class Help implements Plugin {
 
     }
 
+    public void unload() {
+
+    }
+
     public Permission getPermissionRequired() {
         return null;
     }

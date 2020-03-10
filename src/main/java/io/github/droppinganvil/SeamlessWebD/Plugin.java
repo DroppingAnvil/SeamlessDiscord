@@ -15,5 +15,6 @@ public interface Plugin {
     void handleCommand(GuildMessageReceivedEvent e);
     void handlePrivateMessage(GenericPrivateMessageEvent e);
     void handleReact(GenericMessageReactionEvent e);
+    void unload();
     Permission getPermissionRequired();
 }

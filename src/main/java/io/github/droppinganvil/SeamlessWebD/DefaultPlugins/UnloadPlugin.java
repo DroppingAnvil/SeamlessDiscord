@@ -1,29 +1,27 @@
 package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
 
-import io.github.droppinganvil.SeamlessWebD.Configuration;
-import io.github.droppinganvil.SeamlessWebD.Plugin;
-import io.github.droppinganvil.SeamlessWebD.Start;
+import io.github.droppinganvil.SeamlessWebD.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 
-public class Ping implements Plugin {
+public class UnloadPlugin implements Plugin {
     public String getNiceName() {
-        return "Ping";
+        return "Unload Plugin";
     }
 
     public String getCommand() {
-        return "ping";
+        return "unload";
     }
 
     public int getArgsMinSize() {
-        return 0;
+        return 1;
     }
 
     public int getArgsMaxSize() {
-        return 0;
+        return 1;
     }
 
     public boolean botCanUse() {
@@ -31,15 +29,17 @@ public class Ping implements Plugin {
     }
 
     public String getSyntax() {
-        return "ping";
+        return "unload <Command>";
     }
 
     public void handleCommand(GuildMessageReceivedEvent e) {
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setFooter(Configuration.embed_footer);
-        eb.setTitle("Ping");
-        eb.addField("Gateway", String.valueOf(Start.jda.getGatewayPing()), true);
-        e.getMessage().getChannel().sendMessage(eb.build()).queue();
+        String stripped = e.getMessage().getContentRaw().replace(Configuration.prefix + "unload ", "");
+        if (PluginManager.plugins.containsKey(stripped)) {
+            PluginManager.unloaded.put(stripped, PluginManager.plugins.get(stripped));
+            MessageManager.sendMessage(PluginManager.plugins.remove(stripped).getNiceName() + Configuration.unload_success, MessageType.Embed, e.getChannel(), "Unload Plugin");
+        } else {
+            MessageManager.sendMessage(Configuration.unload_failure, MessageType.Embed, e.getChannel(), "Unload Plugin");
+        }
     }
 
     public void handlePrivateMessage(GenericPrivateMessageEvent e) {
@@ -55,6 +55,6 @@ public class Ping implements Plugin {
     }
 
     public Permission getPermissionRequired() {
-        return null;
+        return Permission.ADMINISTRATOR;
     }
 }

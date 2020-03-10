@@ -3,6 +3,7 @@ package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
 import io.github.droppinganvil.SeamlessWebD.Configuration;
 import io.github.droppinganvil.SeamlessWebD.Plugin;
 import io.github.droppinganvil.SeamlessWebD.PluginManager;
+import io.github.droppinganvil.SeamlessWebD.Start;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -37,14 +38,21 @@ public class Plugins implements Plugin {
     public void handleCommand(GuildMessageReceivedEvent e) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Plugin Information");
-        eb.setFooter(Configuration.embed_footer);
-        eb.addField("Plugins Registered", String.valueOf(PluginManager.plugins.size()), true);
+        eb.setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl());
+        eb.addField("Total Plugins", String.valueOf(PluginManager.plugins.size() + PluginManager.unloaded.size()), true);
+        eb.addField("Enabled/Disabled Plugins", PluginManager.plugins.size() + "/" + PluginManager.unloaded.size(), true);
         StringBuilder sb = new StringBuilder();
         for (Plugin p : PluginManager.plugins.values()) {
             sb.append(p.getNiceName());
             sb.append(", ");
         }
-        eb.addField("Plugins", sb.toString(), true);
+        eb.addField("Plugins Loaded", sb.toString(), false);
+        StringBuilder sbb = new StringBuilder();
+        for (Plugin p : PluginManager.unloaded.values()) {
+            sbb.append(p.getNiceName());
+            sbb.append(", ");
+        }
+        eb.addField("Plugins Unloaded", sbb.toString(), false);
         e.getMessage().getChannel().sendMessage(eb.build()).queue();
     }
 
@@ -53,6 +61,10 @@ public class Plugins implements Plugin {
     }
 
     public void handleReact(GenericMessageReactionEvent e) {
+
+    }
+
+    public void unload() {
 
     }
 

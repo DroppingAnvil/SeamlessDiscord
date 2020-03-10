@@ -25,6 +25,8 @@ public class Start {
         PluginManager.registerPlugin(new Plugins());
         PluginManager.registerPlugin(new Echo());
         PluginManager.registerPlugin(new Info());
+        PluginManager.registerPlugin(new UnloadPlugin());
+        PluginManager.registerPlugin(new Load());
 
     }
 }
