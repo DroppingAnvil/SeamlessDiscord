@@ -15,7 +15,6 @@ public class CooldownTask implements Runnable {
         while (enabled) {
             for (Map.Entry<User, Long> entry : cooldownMap.entrySet()) {
                 if ((System.currentTimeMillis() - entry.getValue()) / 1000 >= Configuration.cooldown) {
-                    System.out.print("Removing from cooldown");
                     Start.inCooldown.remove(entry.getKey());
                     cooldownMap.remove(entry.getKey());
                 }
