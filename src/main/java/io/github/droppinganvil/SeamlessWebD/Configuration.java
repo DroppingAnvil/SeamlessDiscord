@@ -18,5 +18,5 @@ public class Configuration {
     public static String load_success = " has been loaded successfully.";
     public static String load_failure = "An unloaded plugin with that command could not be located.";
     public static String token = "";
-    public static Integer cooldown = 5;
+    public static Integer cooldown = 2;
 }
