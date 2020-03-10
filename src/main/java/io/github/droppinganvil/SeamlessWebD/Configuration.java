@@ -9,6 +9,8 @@ public class Configuration {
     public static String embed_author = "SeamlessDiscord";
     public static String embed_footer = "SeamlessDiscord, System by Dropping Anvil";
     public static String embed_errors = "true";
+    public static String permission_basic = "No Permission";
+    public static String permission_descriptive = "You do not have the required permission: ";
     public static String token = "";
     public static Integer cooldown = 5;
 }

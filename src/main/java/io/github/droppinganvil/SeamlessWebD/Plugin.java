@@ -1,5 +1,6 @@
 package io.github.droppinganvil.SeamlessWebD;
 
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
@@ -14,4 +15,5 @@ public interface Plugin {
     void handleCommand(GuildMessageReceivedEvent e);
     void handlePrivateMessage(GenericPrivateMessageEvent e);
     void handleReact(GenericMessageReactionEvent e);
+    Permission getPermissionRequired();
 }

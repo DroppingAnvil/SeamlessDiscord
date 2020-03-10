@@ -20,6 +20,12 @@ public class PluginManager {
             return;
         }
         if (event.getAuthor().isBot() && !target.botCanUse()) return;
+        if (target.getPermissionRequired() != null) {
+            if (!event.getMember().hasPermission(target.getPermissionRequired())) {
+                MessageManager.sendMessage(Configuration.permission_descriptive, embed_errors ? MessageType.Embed : MessageType.String, event.getChannel(), Configuration.permission_basic);
+                return;
+            }
+        }
         target.handleCommand(event);
     }
     public static void registerPlugin(Plugin p) {

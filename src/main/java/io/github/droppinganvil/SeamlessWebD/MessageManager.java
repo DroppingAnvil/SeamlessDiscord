@@ -21,4 +21,11 @@ public class MessageManager {
                 break;
         }
     }
+    public static EmbedBuilder getSyntaxEmbed(String s) {
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setFooter(Configuration.embed_footer);
+        eb.setTitle(Configuration.syntax_basic);
+        eb.setDescription(s);
+        return eb;
+    }
 }
