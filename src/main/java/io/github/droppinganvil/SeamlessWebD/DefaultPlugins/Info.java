@@ -2,7 +2,6 @@ package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
 
 import io.github.droppinganvil.SeamlessWebD.Configuration;
 import io.github.droppinganvil.SeamlessWebD.Plugin;
-import io.github.droppinganvil.SeamlessWebD.PluginManager;
 import io.github.droppinganvil.SeamlessWebD.Start;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -10,13 +9,14 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 
-public class Help implements Plugin {
+public class Info implements Plugin {
+
     public String getNiceName() {
-        return "Help";
+        return "Info";
     }
 
     public String getCommand() {
-        return "help";
+        return "info";
     }
 
     public int getArgsMinSize() {
@@ -32,17 +32,19 @@ public class Help implements Plugin {
     }
 
     public String getSyntax() {
-        return "help";
+        return "info";
     }
 
     public void handleCommand(GuildMessageReceivedEvent e) {
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Help");
-        for (Plugin p : PluginManager.plugins.values()) {
-            eb.addField(p.getNiceName(), Configuration.prefix + p.getSyntax(), true);
-        }
-        eb.setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl());
-        e.getChannel().sendMessage(eb.build()).queue();
+        e.getMessage().getChannel().sendMessage(
+                new EmbedBuilder()
+                .setTitle("Info")
+                .addField("Author", "Dropping Anvil", true)
+                .addField("Project", "https://github.com/DroppingAnvil/SeamlessDiscord", true)
+                .addField("Version", Start.version, true)
+                .setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl())
+                .build()
+        ).queue();
     }
 
     public void handlePrivateMessage(GenericPrivateMessageEvent e) {

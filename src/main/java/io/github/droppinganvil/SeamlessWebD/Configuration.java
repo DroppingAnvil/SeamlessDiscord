@@ -11,6 +11,8 @@ public class Configuration {
     public static String embed_errors = "true";
     public static String permission_basic = "No Permission";
     public static String permission_descriptive = "You do not have the required permission: ";
-    public static String token = "";
+    public static String reaction_positive = "✔";
+    public static String reaction_enabled = "true";
+    public static String token = "Njg2NzQ4NzMzMzk2MDkwOTIz.Xmbu3A.Hxe6ChMZfrC7Rlgc8TcYM-smwuY";
     public static Integer cooldown = 5;
 }

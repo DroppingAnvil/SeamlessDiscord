@@ -26,6 +26,7 @@ public class PluginManager {
                 return;
             }
         }
+        event.getMessage().addReaction(Configuration.reaction_positive).queue();
         target.handleCommand(event);
     }
     public static void registerPlugin(Plugin p) {
