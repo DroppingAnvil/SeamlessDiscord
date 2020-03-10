@@ -41,6 +41,7 @@ public class Info implements Plugin {
                 .setTitle("Info")
                 .addField("Author", "Dropping Anvil", true)
                 .addField("Project", "https://github.com/DroppingAnvil/SeamlessDiscord", true)
+                .addField("License", "https://github.com/DroppingAnvil/SeamlessDiscord/blob/master/LICENSE", true)
                 .addField("Version", Start.version, true)
                 .setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl())
                 .build()

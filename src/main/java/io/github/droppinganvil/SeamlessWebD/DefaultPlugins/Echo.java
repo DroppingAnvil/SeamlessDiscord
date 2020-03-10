@@ -1,8 +1,11 @@
 package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
 
+import io.github.droppinganvil.SeamlessWebD.Configuration;
 import io.github.droppinganvil.SeamlessWebD.MessageManager;
 import io.github.droppinganvil.SeamlessWebD.Plugin;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
@@ -21,7 +24,7 @@ public class Echo implements Plugin {
     }
 
     public int getArgsMaxSize() {
-        return 2;
+        return 15;
     }
 
     public boolean botCanUse() {
@@ -49,8 +52,13 @@ public class Echo implements Plugin {
             e.getMessage().getChannel().sendMessage(MessageManager.getSyntaxEmbed("Echo is not allowed over 10 times.").build()).queue();
             return;
         }
+        String stripped = e.getMessage().getContentRaw().replace(Configuration.prefix + getCommand() + " ", "");
+        stripped = stripped.replace(" " + i, "");
+        MessageEmbed embed = new EmbedBuilder()
+                .setDescription(stripped)
+                .setFooter(Configuration.embed_footer + " | Echo requested by: " + e.getAuthor().getAsTag()).build();
         while (i != 0) {
-            e.getMessage().getChannel().sendMessage(command[1]).queue();
+            e.getMessage().getChannel().sendMessage(embed).queue();
             i--;
         }
     }
