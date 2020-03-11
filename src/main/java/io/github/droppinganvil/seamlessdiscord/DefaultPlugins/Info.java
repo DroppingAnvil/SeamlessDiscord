@@ -1,8 +1,8 @@
-package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
+package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.SeamlessWebD.Configuration;
-import io.github.droppinganvil.SeamlessWebD.Plugin;
-import io.github.droppinganvil.SeamlessWebD.Start;
+import io.github.droppinganvil.seamlessdiscord.Configuration;
+import io.github.droppinganvil.seamlessdiscord.Plugin;
+import io.github.droppinganvil.seamlessdiscord.Start;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;

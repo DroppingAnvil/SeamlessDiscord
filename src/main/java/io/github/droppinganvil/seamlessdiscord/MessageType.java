@@ -1,4 +1,4 @@
-package io.github.droppinganvil.SeamlessWebD;
+package io.github.droppinganvil.seamlessdiscord;
 
 public enum MessageType {
     String,

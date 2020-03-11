@@ -1,9 +1,6 @@
-package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
+package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.SeamlessWebD.Configuration;
-import io.github.droppinganvil.SeamlessWebD.Plugin;
-import io.github.droppinganvil.SeamlessWebD.PluginManager;
-import io.github.droppinganvil.SeamlessWebD.Start;
+import io.github.droppinganvil.seamlessdiscord.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -53,6 +50,12 @@ public class Plugins implements Plugin {
             sbb.append(", ");
         }
         eb.addField("Plugins Unloaded", sbb.toString(), false);
+        StringBuilder websb = new StringBuilder();
+        for (WebPlugin p : PluginManager.webPlugins.values()) {
+            websb.append(p.getNiceName());
+            websb.append(", ");
+        }
+        eb.addField("WebPlugins Loaded", websb.toString(), false);
         e.getMessage().getChannel().sendMessage(eb.build()).queue();
     }
 

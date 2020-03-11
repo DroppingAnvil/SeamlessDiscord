@@ -1,7 +1,8 @@
-package io.github.droppinganvil.SeamlessWebD;
+package io.github.droppinganvil.seamlessdiscord;
 
-import io.github.droppinganvil.SeamlessWebD.Concurrent.CooldownTask;
-import io.github.droppinganvil.SeamlessWebD.DefaultPlugins.*;
+import io.github.droppinganvil.seamlessdiscord.Concurrent.CooldownTask;
+import io.github.droppinganvil.seamlessdiscord.Concurrent.StatusTask;
+import io.github.droppinganvil.seamlessdiscord.DefaultPlugins.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.User;
@@ -11,7 +12,7 @@ import java.util.HashSet;
 
 public class Start {
     public static JDA jda;
-    public static String version = "1.0-BETA";
+    public static String version = "1.1-BETA";
     public static HashSet<User> inCooldown = new HashSet<User>();
     public static void main(String[] args) {
         //Generate configs
@@ -31,9 +32,10 @@ public class Start {
         PluginManager.registerPlugin(new Info());
         PluginManager.registerPlugin(new UnloadPlugin());
         PluginManager.registerPlugin(new Load());
-        PluginManager.registerPlugin(new Cooldown());
+        PluginManager.registerPlugin(new TaskInfo());
         //Start cooldown monitor
         new Thread(new CooldownTask()).start();
+        new Thread(new StatusTask()).start();
         CooldownTask.setup = true;
     }
 }

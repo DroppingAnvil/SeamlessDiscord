@@ -1,22 +1,24 @@
-package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
+package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.SeamlessWebD.Configuration;
-import io.github.droppinganvil.SeamlessWebD.Plugin;
-import io.github.droppinganvil.SeamlessWebD.PluginManager;
-import io.github.droppinganvil.SeamlessWebD.Start;
+import io.github.droppinganvil.seamlessdiscord.Concurrent.CooldownTask;
+import io.github.droppinganvil.seamlessdiscord.Concurrent.TaskManager;
+import io.github.droppinganvil.seamlessdiscord.Concurrent.Toggleable;
+import io.github.droppinganvil.seamlessdiscord.Configuration;
+import io.github.droppinganvil.seamlessdiscord.Plugin;
+import io.github.droppinganvil.seamlessdiscord.Start;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 
-public class Help implements Plugin {
+public class TaskInfo implements Plugin {
     public String getNiceName() {
-        return "Help";
+        return "Task Info";
     }
 
     public String getCommand() {
-        return "help";
+        return "tasks";
     }
 
     public int getArgsMinSize() {
@@ -32,17 +34,17 @@ public class Help implements Plugin {
     }
 
     public String getSyntax() {
-        return "help";
+        return "tasks";
     }
 
     public void handleCommand(GuildMessageReceivedEvent e) {
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Help");
-        for (Plugin p : PluginManager.plugins.values()) {
-            eb.addField(p.getNiceName(), Configuration.prefix + p.getSyntax(), true);
+        eb.setTitle("Task Info");
+        for (Toggleable toggleable : TaskManager.taskSet) {
+            eb.addField(toggleable.getNiceName(), toggleable.active() ? "Active" : "Shutdown", true);
         }
         eb.setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl());
-        e.getChannel().sendMessage(eb.build()).queue();
+        e.getMessage().getChannel().sendMessage(eb.build()).queue();
     }
 
     public void handlePrivateMessage(GenericPrivateMessageEvent e) {
@@ -58,6 +60,6 @@ public class Help implements Plugin {
     }
 
     public Permission getPermissionRequired() {
-        return null;
+        return Permission.ADMINISTRATOR;
     }
 }

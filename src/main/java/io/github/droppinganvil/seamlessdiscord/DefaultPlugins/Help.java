@@ -1,21 +1,22 @@
-package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
+package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.SeamlessWebD.Configuration;
-import io.github.droppinganvil.SeamlessWebD.Plugin;
-import io.github.droppinganvil.SeamlessWebD.Start;
+import io.github.droppinganvil.seamlessdiscord.Configuration;
+import io.github.droppinganvil.seamlessdiscord.Plugin;
+import io.github.droppinganvil.seamlessdiscord.PluginManager;
+import io.github.droppinganvil.seamlessdiscord.Start;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 
-public class Ping implements Plugin {
+public class Help implements Plugin {
     public String getNiceName() {
-        return "Ping";
+        return "Help";
     }
 
     public String getCommand() {
-        return "ping";
+        return "help";
     }
 
     public int getArgsMinSize() {
@@ -31,15 +32,17 @@ public class Ping implements Plugin {
     }
 
     public String getSyntax() {
-        return "ping";
+        return "help";
     }
 
     public void handleCommand(GuildMessageReceivedEvent e) {
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setFooter(Configuration.embed_footer);
-        eb.setTitle("Ping");
-        eb.addField("Gateway", String.valueOf(Start.jda.getGatewayPing()), true);
-        e.getMessage().getChannel().sendMessage(eb.build()).queue();
+        eb.setTitle("Help");
+        for (Plugin p : PluginManager.plugins.values()) {
+            eb.addField(p.getNiceName(), Configuration.prefix + p.getSyntax(), true);
+        }
+        eb.setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl());
+        e.getChannel().sendMessage(eb.build()).queue();
     }
 
     public void handlePrivateMessage(GenericPrivateMessageEvent e) {

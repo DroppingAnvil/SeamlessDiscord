@@ -1,6 +1,6 @@
-package io.github.droppinganvil.SeamlessWebD;
+package io.github.droppinganvil.seamlessdiscord;
 
-import io.github.droppinganvil.SeamlessWebD.Concurrent.CooldownTask;
+import io.github.droppinganvil.seamlessdiscord.Concurrent.CooldownTask;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;

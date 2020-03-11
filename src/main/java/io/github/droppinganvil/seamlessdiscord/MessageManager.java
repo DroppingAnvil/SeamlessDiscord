@@ -1,4 +1,4 @@
-package io.github.droppinganvil.SeamlessWebD;
+package io.github.droppinganvil.seamlessdiscord;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;

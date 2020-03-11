@@ -1,22 +1,21 @@
-package io.github.droppinganvil.SeamlessWebD.DefaultPlugins;
+package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.SeamlessWebD.Concurrent.CooldownTask;
-import io.github.droppinganvil.SeamlessWebD.Configuration;
-import io.github.droppinganvil.SeamlessWebD.Plugin;
-import io.github.droppinganvil.SeamlessWebD.Start;
+import io.github.droppinganvil.seamlessdiscord.Configuration;
+import io.github.droppinganvil.seamlessdiscord.Plugin;
+import io.github.droppinganvil.seamlessdiscord.Start;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 
-public class Cooldown implements Plugin {
+public class Ping implements Plugin {
     public String getNiceName() {
-        return "Cooldown Info";
+        return "Ping";
     }
 
     public String getCommand() {
-        return "cooldown";
+        return "ping";
     }
 
     public int getArgsMinSize() {
@@ -32,15 +31,14 @@ public class Cooldown implements Plugin {
     }
 
     public String getSyntax() {
-        return "cooldown";
+        return "ping";
     }
 
     public void handleCommand(GuildMessageReceivedEvent e) {
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Cooldown Info");
-        eb.addField("Users in Cooldown", String.valueOf(Start.inCooldown.size()), true);
-        eb.addField("Cooldown Task Size", String.valueOf(CooldownTask.cooldownMap.size()), true);
-        eb.setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl());
+        eb.setFooter(Configuration.embed_footer);
+        eb.setTitle("Ping");
+        eb.addField("Gateway", String.valueOf(Start.jda.getGatewayPing()), true);
         e.getMessage().getChannel().sendMessage(eb.build()).queue();
     }
 
@@ -57,6 +55,6 @@ public class Cooldown implements Plugin {
     }
 
     public Permission getPermissionRequired() {
-        return Permission.ADMINISTRATOR;
+        return null;
     }
 }
