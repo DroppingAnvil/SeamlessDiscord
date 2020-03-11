@@ -12,7 +12,7 @@ import java.util.HashSet;
 
 public class Start {
     public static JDA jda;
-    public static String version = "1.1-BETA";
+    public static String version = "1.3-BETA";
     public static HashSet<User> inCooldown = new HashSet<User>();
     public static void main(String[] args) {
         //Generate configs
