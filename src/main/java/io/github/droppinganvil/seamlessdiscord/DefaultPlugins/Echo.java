@@ -1,11 +1,9 @@
 package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
 import io.github.droppinganvil.seamlessdiscord.Configuration;
-import io.github.droppinganvil.seamlessdiscord.MessageManager;
 import io.github.droppinganvil.seamlessdiscord.Plugin;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
@@ -24,7 +22,7 @@ public class Echo implements Plugin {
     }
 
     public int getArgsMaxSize() {
-        return 15;
+        return 100;
     }
 
     public boolean botCanUse() {
@@ -32,35 +30,28 @@ public class Echo implements Plugin {
     }
 
     public String getSyntax() {
-        return "echo <Message> <Amount>";
-    }
-
-    public Permission getPermissionRequired() {
-        return Permission.ADMINISTRATOR;
+        return "echo <integer> [string]";
     }
 
     public void handleCommand(GuildMessageReceivedEvent e) {
-        String[] command = e.getMessage().getContentDisplay().split(" ");
-        int i = 0;
+        TextChannel tc = e.getChannel();
+        String temp = e.getMessage().getContentRaw();
+        Integer x;
         try {
-            i = Integer.parseInt(command[2]);
-        } catch (NumberFormatException ex) {
-            e.getMessage().getChannel().sendMessage(MessageManager.getSyntaxEmbed("Argument 2 must be an Integer!").build()).queue();
+            x = Integer.parseInt(temp.split(" ")[1]);
+        } catch (Exception ex) {
+            tc.sendMessage(temp.split(" ")[1] + "is not a valid integer!");
             return;
         }
-        if (i > 10) {
-            e.getMessage().getChannel().sendMessage(MessageManager.getSyntaxEmbed("Echo is not allowed over 10 times.").build()).queue();
-            return;
+        temp = temp
+                .replace(x.toString(), "")
+                .replace(Configuration.prefix + "echo", "");
+        while (x != 0) {
+            tc.sendMessage(temp).queue();
+            x--;
         }
-        String stripped = e.getMessage().getContentRaw().replace(Configuration.prefix + getCommand() + " ", "");
-        stripped = stripped.replace(" " + i, "");
-        MessageEmbed embed = new EmbedBuilder()
-                .setDescription(stripped)
-                .setFooter(Configuration.embed_footer + " | Echo requested by: " + e.getAuthor().getAsTag()).build();
-        while (i != 0) {
-            e.getMessage().getChannel().sendMessage(embed).queue();
-            i--;
-        }
+
+
     }
 
     public void handlePrivateMessage(GenericPrivateMessageEvent e) {
@@ -73,5 +64,9 @@ public class Echo implements Plugin {
 
     public void unload() {
 
+    }
+
+    public Permission getPermissionRequired() {
+        return Permission.ADMINISTRATOR;
     }
 }
