@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Configuration extends PersistenceObject {
-    public static String token = "Njg2NzQ4NzMzMzk2MDkwOTIz.XuJLeg.Hsa_c3YqluM7GOOC_LzpMwjM2r0";
+    public static String token = "Njg2NzQ4NzMzMzk2MDkwOTIz.XvVlyA.qsziYeZliuQKyug7FvjfCm8Vbro";
     public static Integer cooldown = 2;
     public static Long status_interval = 10000L;
     public static List<String> status_list = Arrays.asList("Plugin based Discord Bot framework", "WebPlugins coming soon", "github.com/DroppingAnvil/SeamlessDiscord");
