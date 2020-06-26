@@ -1,7 +1,7 @@
 package io.github.droppinganvil.seamlessdiscord.Concurrent;
 
-import io.github.droppinganvil.seamlessdiscord.Configuration;
-import io.github.droppinganvil.seamlessdiscord.Start;
+import io.github.droppinganvil.seamlessdiscord.configurations.Configuration;
+import io.github.droppinganvil.seamlessdiscord.Main;
 import net.dv8tion.jda.api.entities.Activity;
 
 public class StatusTask implements Runnable, Toggleable {
@@ -12,7 +12,7 @@ public class StatusTask implements Runnable, Toggleable {
     public void run() {
         while (enabled) {
             for (String status : Configuration.status_list) {
-                Start.jda.getPresence().setPresence(Activity.of(Configuration.status_activity, status), true);
+                Main.jda.getPresence().setPresence(Activity.of(Configuration.status_activity, status), true);
                 try {
                     Thread.sleep(Configuration.status_interval);
                 } catch (InterruptedException e) {

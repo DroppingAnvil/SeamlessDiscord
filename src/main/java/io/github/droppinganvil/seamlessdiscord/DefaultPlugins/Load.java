@@ -1,6 +1,8 @@
 package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
 import io.github.droppinganvil.seamlessdiscord.*;
+import io.github.droppinganvil.seamlessdiscord.configurations.Configuration;
+import io.github.droppinganvil.seamlessdiscord.objects.SeamlessGuild;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
@@ -31,13 +33,13 @@ public class Load implements Plugin {
         return "load <Unloaded Plugin's Command>";
     }
 
-    public void handleCommand(GuildMessageReceivedEvent e) {
-        String stripped = e.getMessage().getContentRaw().replace(Configuration.prefix + "load ", "");
+    public void handleCommand(GuildMessageReceivedEvent e, SeamlessGuild sg) {
+        String stripped = e.getMessage().getContentRaw().replace(sg.prefix + "load ", "");
         if (PluginManager.unloaded.containsKey(stripped)) {
             PluginManager.plugins.put(stripped, PluginManager.unloaded.get(stripped));
-            MessageManager.sendMessage(PluginManager.unloaded.remove(stripped).getNiceName() + Configuration.load_success, MessageType.Embed, e.getChannel(), "Load Plugin");
+            MessageManager.sendMessage(PluginManager.unloaded.remove(stripped).getNiceName() + sg.load_success, MessageType.Embed, e.getChannel(), "Load Plugin", sg);
         } else {
-            MessageManager.sendMessage(Configuration.load_failure, MessageType.Embed, e.getChannel(), "Load Plugin");
+            MessageManager.sendMessage(sg.load_failure, MessageType.Embed, e.getChannel(), "Load Plugin", sg);
         }
     }
 

@@ -1,8 +1,8 @@
 package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.seamlessdiscord.Configuration;
 import io.github.droppinganvil.seamlessdiscord.Plugin;
-import io.github.droppinganvil.seamlessdiscord.Start;
+import io.github.droppinganvil.seamlessdiscord.Main;
+import io.github.droppinganvil.seamlessdiscord.objects.SeamlessGuild;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -34,11 +34,11 @@ public class Ping implements Plugin {
         return "ping";
     }
 
-    public void handleCommand(GuildMessageReceivedEvent e) {
+    public void handleCommand(GuildMessageReceivedEvent e, SeamlessGuild sg) {
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setFooter(Configuration.embed_footer);
+        eb.setFooter(sg.embed_footer);
         eb.setTitle("Ping");
-        eb.addField("Gateway", String.valueOf(Start.jda.getGatewayPing()), true);
+        eb.addField("Gateway", String.valueOf(Main.jda.getGatewayPing()), true);
         e.getMessage().getChannel().sendMessage(eb.build()).queue();
     }
 

@@ -1,7 +1,7 @@
 package io.github.droppinganvil.seamlessdiscord.Concurrent;
 
-import io.github.droppinganvil.seamlessdiscord.Configuration;
-import io.github.droppinganvil.seamlessdiscord.Start;
+import io.github.droppinganvil.seamlessdiscord.configurations.Configuration;
+import io.github.droppinganvil.seamlessdiscord.Main;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.Map;
@@ -18,7 +18,7 @@ public class CooldownTask implements Runnable, Toggleable{
         while (enabled) {
             for (Map.Entry<User, Long> entry : cooldownMap.entrySet()) {
                 if ((System.currentTimeMillis() - entry.getValue()) / 1000 >= Configuration.cooldown) {
-                    Start.inCooldown.remove(entry.getKey());
+                    Main.inCooldown.remove(entry.getKey());
                     cooldownMap.remove(entry.getKey());
                 }
             }

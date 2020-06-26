@@ -1,5 +1,6 @@
 package io.github.droppinganvil.seamlessdiscord;
 
+import io.github.droppinganvil.seamlessdiscord.objects.SeamlessGuild;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
@@ -12,7 +13,7 @@ public interface Plugin {
     int getArgsMaxSize();
     boolean botCanUse();
     String getSyntax();
-    void handleCommand(GuildMessageReceivedEvent e);
+    void handleCommand(GuildMessageReceivedEvent e, SeamlessGuild sg);
     void handlePrivateMessage(GenericPrivateMessageEvent e);
     void handleReact(GenericMessageReactionEvent e);
     void unload();

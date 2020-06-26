@@ -1,8 +1,9 @@
 package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.seamlessdiscord.Configuration;
+import io.github.droppinganvil.seamlessdiscord.configurations.Configuration;
 import io.github.droppinganvil.seamlessdiscord.Plugin;
-import io.github.droppinganvil.seamlessdiscord.Start;
+import io.github.droppinganvil.seamlessdiscord.Main;
+import io.github.droppinganvil.seamlessdiscord.objects.SeamlessGuild;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -35,15 +36,15 @@ public class Info implements Plugin {
         return "info";
     }
 
-    public void handleCommand(GuildMessageReceivedEvent e) {
+    public void handleCommand(GuildMessageReceivedEvent e, SeamlessGuild sg) {
         e.getMessage().getChannel().sendMessage(
                 new EmbedBuilder()
                 .setTitle("Info")
                 .addField("Author", "Dropping Anvil", true)
-                        .addField("Version", Start.version, true)
+                        .addField("Version", Main.version, true)
                         .addField("Project", "https://github.com/DroppingAnvil/SeamlessDiscord", false)
                         .addField("License", "https://github.com/DroppingAnvil/SeamlessDiscord/blob/master/LICENSE", false)
-                        .setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl())
+                        .setFooter(sg.embed_footer, Main.jda.getSelfUser().getAvatarUrl())
                 .build()
         ).queue();
     }

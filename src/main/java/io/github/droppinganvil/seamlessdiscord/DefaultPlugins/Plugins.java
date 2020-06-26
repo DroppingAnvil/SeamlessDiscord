@@ -1,6 +1,8 @@
 package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
 import io.github.droppinganvil.seamlessdiscord.*;
+import io.github.droppinganvil.seamlessdiscord.configurations.Configuration;
+import io.github.droppinganvil.seamlessdiscord.objects.SeamlessGuild;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -32,10 +34,10 @@ public class Plugins implements Plugin {
         return "plugins";
     }
 
-    public void handleCommand(GuildMessageReceivedEvent e) {
+    public void handleCommand(GuildMessageReceivedEvent e, SeamlessGuild sg) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Plugin Information");
-        eb.setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl());
+        eb.setFooter(sg.embed_footer, Main.jda.getSelfUser().getAvatarUrl());
         eb.addField("Total Plugins", String.valueOf(PluginManager.plugins.size() + PluginManager.unloaded.size()), true);
         eb.addField("Enabled/Disabled Plugins", PluginManager.plugins.size() + "/" + PluginManager.unloaded.size(), true);
         StringBuilder sb = new StringBuilder();

@@ -1,64 +1,71 @@
 package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.seamlessdiscord.Concurrent.TaskManager;
-import io.github.droppinganvil.seamlessdiscord.Concurrent.Toggleable;
-import io.github.droppinganvil.seamlessdiscord.configurations.Configuration;
-import io.github.droppinganvil.seamlessdiscord.Plugin;
 import io.github.droppinganvil.seamlessdiscord.Main;
+import io.github.droppinganvil.seamlessdiscord.Plugin;
 import io.github.droppinganvil.seamlessdiscord.objects.SeamlessGuild;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 
-public class TaskInfo implements Plugin {
+public class Config implements Plugin {
+    @Override
     public String getNiceName() {
-        return "Task Info";
+        return "Config";
     }
 
+    @Override
     public String getCommand() {
-        return "tasks";
+        return "config";
     }
 
+    @Override
     public int getArgsMinSize() {
-        return 0;
+        return 2;
     }
 
+    @Override
     public int getArgsMaxSize() {
-        return 0;
+        return 50;
     }
 
+    @Override
     public boolean botCanUse() {
         return false;
     }
 
+    @Override
     public String getSyntax() {
-        return "tasks";
+        return "config <Value Name> <Value>";
     }
 
+    @Override
     public void handleCommand(GuildMessageReceivedEvent e, SeamlessGuild sg) {
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Task Info");
-        for (Toggleable toggleable : TaskManager.taskSet) {
-            eb.addField(toggleable.getNiceName(), toggleable.active() ? "Active" : "Shutdown", true);
-        }
-        eb.setFooter(sg.embed_footer, Main.jda.getSelfUser().getAvatarUrl());
-        e.getMessage().getChannel().sendMessage(eb.build()).queue();
+        String[] tempArray = e.getMessage().getContentRaw().split(" ");
+        String field = tempArray[1];
+        String value = e.getMessage().getContentRaw()
+                .replace(sg.prefix + "config ", "")
+                .replace(field + " ", "");
+        sg.getRemoteEdits().put(field, value);
+        Main.user.getAdapter().loadEdits(sg);
     }
 
+    @Override
     public void handlePrivateMessage(GenericPrivateMessageEvent e) {
 
     }
 
+    @Override
     public void handleReact(GenericMessageReactionEvent e) {
 
     }
 
+    @Override
     public void unload() {
 
     }
 
+    @Override
     public Permission getPermissionRequired() {
         return Permission.ADMINISTRATOR;
     }

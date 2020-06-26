@@ -1,6 +1,8 @@
 package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
 import io.github.droppinganvil.seamlessdiscord.*;
+import io.github.droppinganvil.seamlessdiscord.configurations.Configuration;
+import io.github.droppinganvil.seamlessdiscord.objects.SeamlessGuild;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.GenericPrivateMessageEvent;
@@ -31,13 +33,13 @@ public class UnloadPlugin implements Plugin {
         return "unload <Command>";
     }
 
-    public void handleCommand(GuildMessageReceivedEvent e) {
-        String stripped = e.getMessage().getContentRaw().replace(Configuration.prefix + "unload ", "");
+    public void handleCommand(GuildMessageReceivedEvent e, SeamlessGuild sg) {
+        String stripped = e.getMessage().getContentRaw().replace(sg.prefix + "unload ", "");
         if (PluginManager.plugins.containsKey(stripped)) {
             PluginManager.unloaded.put(stripped, PluginManager.plugins.get(stripped));
-            MessageManager.sendMessage(PluginManager.plugins.remove(stripped).getNiceName() + Configuration.unload_success, MessageType.Embed, e.getChannel(), "Unload Plugin");
+            MessageManager.sendMessage(PluginManager.plugins.remove(stripped).getNiceName() + sg.unload_success, MessageType.Embed, e.getChannel(), "Unload Plugin", sg);
         } else {
-            MessageManager.sendMessage(Configuration.unload_failure, MessageType.Embed, e.getChannel(), "Unload Plugin");
+            MessageManager.sendMessage(sg.unload_failure, MessageType.Embed, e.getChannel(), "Unload Plugin", sg);
         }
     }
 

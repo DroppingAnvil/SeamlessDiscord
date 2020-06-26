@@ -1,9 +1,9 @@
 package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.seamlessdiscord.Configuration;
 import io.github.droppinganvil.seamlessdiscord.Plugin;
 import io.github.droppinganvil.seamlessdiscord.PluginManager;
-import io.github.droppinganvil.seamlessdiscord.Start;
+import io.github.droppinganvil.seamlessdiscord.Main;
+import io.github.droppinganvil.seamlessdiscord.objects.SeamlessGuild;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -35,13 +35,13 @@ public class Help implements Plugin {
         return "help";
     }
 
-    public void handleCommand(GuildMessageReceivedEvent e) {
+    public void handleCommand(GuildMessageReceivedEvent e, SeamlessGuild sg) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Help");
         for (Plugin p : PluginManager.plugins.values()) {
-            eb.addField(p.getNiceName(), Configuration.prefix + p.getSyntax(), true);
+            eb.addField(p.getNiceName(), sg.prefix + p.getSyntax(), true);
         }
-        eb.setFooter(Configuration.embed_footer, Start.jda.getSelfUser().getAvatarUrl());
+        eb.setFooter(sg.embed_footer, Main.jda.getSelfUser().getAvatarUrl());
         e.getChannel().sendMessage(eb.build()).queue();
     }
 

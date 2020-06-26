@@ -1,7 +1,7 @@
 package io.github.droppinganvil.seamlessdiscord.DefaultPlugins;
 
-import io.github.droppinganvil.seamlessdiscord.Configuration;
 import io.github.droppinganvil.seamlessdiscord.Plugin;
+import io.github.droppinganvil.seamlessdiscord.objects.SeamlessGuild;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -33,7 +33,7 @@ public class Echo implements Plugin {
         return "echo <integer> [string]";
     }
 
-    public void handleCommand(GuildMessageReceivedEvent e) {
+    public void handleCommand(GuildMessageReceivedEvent e, SeamlessGuild sg) {
         TextChannel tc = e.getChannel();
         String temp = e.getMessage().getContentRaw();
         Integer x;
@@ -45,7 +45,7 @@ public class Echo implements Plugin {
         }
         temp = temp
                 .replace(x.toString(), "")
-                .replace(Configuration.prefix + "echo", "");
+                .replace(sg.prefix + "echo", "");
         while (x != 0) {
             tc.sendMessage(temp).queue();
             x--;
